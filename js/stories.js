@@ -82,6 +82,7 @@ async function toggleFav(tar, id) {
     currentUser.addFav(fav);
     await currentUser.addOrRemoveFav(id, 'POST');
   } else {
+    toggleStar(tar);
     currentUser.removeFav(fav);
     await currentUser.addOrRemoveFav(id, 'DELETE');
     putFavsOnPage();
@@ -151,7 +152,11 @@ function addFavorite(story) {
       $emptyFavMsg.hide();
       const favStory = generateStoryMarkup(story, "fav");
       $favStoriesList.append(favStory);
-      toggleStar($(`i.${story.storyId}`));
+      const I = $(`i.${story.storyId}`)
+      for (let x = 0; x < I.length; x++){
+        I[x].classList.remove("far");
+        I[x].classList.add("fas");
+      }
     }
   }
 }
